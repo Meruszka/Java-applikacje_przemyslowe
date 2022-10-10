@@ -1,40 +1,33 @@
 package zad3;
 
 public class zad3 {
-    public static float wiekNaZiemi(int sekundy){
-        return sekundy / 31557600f;
-    }
-    public static float wiekNaMerkury(int sekundy){
-        return wiekNaZiemi(sekundy) / 0.2408467f;
-    }
-    public static float wiekNaWenus(int sekundy){
-        return wiekNaZiemi(sekundy) / 0.61519726f;
-    }
-    public static float wiekNaMars(int sekundy){
-        return wiekNaZiemi(sekundy) / 1.8808158f;
-    }
-    public static float wiekNaJowisz(int sekundy){
-        return wiekNaZiemi(sekundy) / 11.862615f;
-    }
-    public static float wiekNaSaturn(int sekundy){
-        return wiekNaZiemi(sekundy) / 29.447498f;
-    }
-    public static float wiekNaUran(int sekundy){
-        return wiekNaZiemi(sekundy) / 84.016846f;
-    }
-    public static float wiekNaNeptun(int sekundy){
-        return wiekNaZiemi(sekundy) / 164.79132f;
+    public enum PLANET{
+        EARTH(1),
+        MARS(1.8808158),
+        JUPITER(11.862615),
+        SATURN(29.447498),
+        URANUS(84.016846),
+        NEPTUNE(164.79132),
+        VENUS(0.90718474),
+        MERCURY(0.37796447);
+
+        private final double orbitalPeriod;
+        
+        private PLANET(double orbitalPeriod){
+            this.orbitalPeriod = orbitalPeriod;
+        }
+    
+        public final double calulateAge(int age){
+            return age * this.orbitalPeriod;
+        };
+    
+    
     }
     public static void main(String[] args){
         System.out.println("Podaj wiek w sekundach: ");
         int sekundy = Integer.parseInt(System.console().readLine());
-        System.out.println("Wiek na Ziemi: " + wiekNaZiemi(sekundy));
-        System.out.println("Wiek na Merkury: " + wiekNaMerkury(sekundy));
-        System.out.println("Wiek na Wenus: " + wiekNaWenus(sekundy));
-        System.out.println("Wiek na Mars: " + wiekNaMars(sekundy));
-        System.out.println("Wiek na Jowisz: " + wiekNaJowisz(sekundy));
-        System.out.println("Wiek na Saturn: " + wiekNaSaturn(sekundy));
-        System.out.println("Wiek na Uran: " + wiekNaUran(sekundy));
-        System.out.println("Wiek na Neptun: " + wiekNaNeptun(sekundy));
+        for (PLANET p : PLANET.values()){
+            System.out.println("Wiek na planecie " + p + " wynosi " + p.calulateAge(sekundy) + " sekund");
+        }
     }
 }
