@@ -1,6 +1,4 @@
-package Author;
-
-;
+package zad5;
 
 public class Author {
     private String name;

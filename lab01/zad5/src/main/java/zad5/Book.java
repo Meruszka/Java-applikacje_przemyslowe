@@ -1,5 +1,4 @@
-package Book;
-import Author.*;
+package zad5;
 
 public class Book {
     private String name;
