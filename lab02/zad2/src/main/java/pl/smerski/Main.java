@@ -1,4 +1,4 @@
-package org.example;
+package pl.smerski;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
