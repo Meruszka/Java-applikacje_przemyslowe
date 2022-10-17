@@ -1,4 +1,4 @@
-package zad5;
+package pl.smerski.zad5;
 
 public class Main {
     public static void main(String[] args){

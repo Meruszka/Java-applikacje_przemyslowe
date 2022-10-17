@@ -1,8 +1,13 @@
-package zad5;
+package pl.smerski.zad5;
+
+import lombok.*;
 
 public class Author {
+    @Getter @Setter
     private String name;
+    @Getter @Setter
     private String email;
+    @Getter @Setter
     private Gender gender;
 
     public Author(String name, String email, Gender gender){
@@ -11,17 +16,8 @@ public class Author {
         this.gender = gender;
 
     }
-    public String getEmail() {
-        return email;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public Gender getGender(){
-        return gender;
+    public Author(){
+        this("", "", Gender.NotKnown);
     }
     public String toString(){
         return "Author[" + name + "," + email +"," + gender + "]";
