@@ -1,9 +1,12 @@
 package pl.smerski.app.lab03.serviceBean;
 
 
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Component;
 import pl.smerski.app.lab03.domain.Person;
+import pl.smerski.app.lab03.service.ParseCSV;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,13 @@ public class PersonManagerInMemory implements PersonManager{
         persons.remove(person);
         persons.add(person);
     }
-
-
-
-}
+    @Override
+    public void loadPersons() throws IOException, InterruptedException {
+        ParseCSV parseCSV = new ParseCSV();
+        String csv = parseCSV.getCSV();
+        for (CSVRecord record : parseCSV.parseCSV(csv)) {
+            Person person = new Person(Integer.parseInt(record.get("id")), record.get("name"), record.get("surname"), record.get("email"), record.get("company_name"));
+            persons.add(person);
+        }
+    }
+    }

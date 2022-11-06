@@ -13,7 +13,6 @@ public class PersonController {
 
     public PersonController(@Autowired PersonManager personManager) {
         this.personManager = personManager;
-
     }
 
     private PersonManager personManager;

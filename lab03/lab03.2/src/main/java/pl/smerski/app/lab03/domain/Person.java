@@ -14,7 +14,7 @@ public class Person {
     String email;
     @Getter @Setter
     String company_name;
-    public Person(){}
+    public Person(int id, String name, String surname, String email, String company_name){}
     public Person(String id, String name, String surname, String email, String company_name) {
         this.id = id;
         this.name = name;

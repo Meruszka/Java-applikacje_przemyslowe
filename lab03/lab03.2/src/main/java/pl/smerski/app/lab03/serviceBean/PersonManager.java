@@ -2,6 +2,7 @@ package pl.smerski.app.lab03.serviceBean;
 
 import pl.smerski.app.lab03.domain.Person;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PersonManager {
@@ -10,4 +11,5 @@ public interface PersonManager {
     void addPerson(Person person);
     void deletePerson(int id);
     void updatePerson(Person person);
+    void loadPersons() throws IOException, InterruptedException;
 }
