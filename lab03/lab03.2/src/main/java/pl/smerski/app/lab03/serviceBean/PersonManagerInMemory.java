@@ -45,7 +45,7 @@ public class PersonManagerInMemory implements PersonManager{
         ParseCSV parseCSV = new ParseCSV();
         String csv = parseCSV.getCSV();
         for (CSVRecord record : parseCSV.parseCSV(csv)) {
-            Person person = new Person(Integer.parseInt(record.get("id")), record.get("name"), record.get("surname"), record.get("email"), record.get("company_name"));
+            Person person = new Person(record.get("id"), record.get("name"), record.get("surname"), record.get("email"), record.get("company_name"));
             persons.add(person);
         }
     }
