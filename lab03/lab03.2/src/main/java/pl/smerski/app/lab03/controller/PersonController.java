@@ -7,6 +7,7 @@ import pl.smerski.app.lab03.serviceBean.PersonManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class PersonController {
@@ -19,6 +20,7 @@ public class PersonController {
 
     @PostMapping("/person")
     public void addPerson(@RequestBody Person person) {
+        person.setId(UUID.randomUUID().toString());
         personManager.addPerson(person);
     }
 

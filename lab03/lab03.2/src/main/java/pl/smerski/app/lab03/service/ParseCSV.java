@@ -2,6 +2,7 @@ package pl.smerski.app.lab03.service;
 
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
@@ -13,7 +14,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ParseCSV {
-    String[] HEADERS = {"id", "name", "surname", "email", "company_name"};
+    private final CSVFormat csvFormat = CSVFormat.Builder
+            .create(CSVFormat.DEFAULT)
+            .setHeader()
+            .setSkipHeaderRecord(true)
+            .build();
     public String getCSV() throws IOException, InterruptedException {
         String URL = "https://stepik.org/media/attachments/lesson/266646/MOCK_DATA.csv";
         HttpClient client = HttpClient.newHttpClient();
@@ -24,10 +29,8 @@ public class ParseCSV {
         return response.body();
     }
     public Iterable<CSVRecord> parseCSV(String csv) throws IOException {
-        Reader reader = new StringReader(csv);
-        return CSVFormat.DEFAULT
-                .withHeader(HEADERS)
-                .parse(reader);
+        CSVParser parser = CSVParser.parse(csv, csvFormat);
+        return parser.getRecords();
     }
 
 }
