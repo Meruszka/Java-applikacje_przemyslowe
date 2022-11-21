@@ -1,62 +1,57 @@
 package pl.smerski.siatkowka.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.smerski.siatkowka.domain.Player;
 import pl.smerski.siatkowka.service.PlayerManager;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
-public class PlayerController implements PlayerManager {
-    List<Player> players = new ArrayList<>();
-    @GetMapping("/players")
+public class PlayerController {
+
+    private final PlayerManager playerManager;
+
+    public PlayerController(@Autowired PlayerManager playerManager) {
+        this.playerManager = playerManager;
+    }
+
+    @GetMapping("/api/players")
     public ResponseEntity<?> getPlayers(){
-        return new ResponseEntity<>(players, HttpStatus.OK);
+        return new ResponseEntity<>(playerManager.getPlayers(), HttpStatus.OK);
     }
 
-    @GetMapping("/players/{id}")
+    @GetMapping("/api/players/{id}")
     public ResponseEntity<?> getPlayer(@PathVariable String id) {
-        Player foundPlayer = players.stream()
-                .filter(player -> player.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-        if (foundPlayer == null) {
-            return new ResponseEntity<>("Player not found", HttpStatus.NOT_FOUND);
+        try {
+            return new ResponseEntity<>(playerManager.getPlayer(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(foundPlayer, HttpStatus.valueOf(200));
     }
 
-    @PostMapping("/players/add")
+    @PostMapping("/api/players/add")
     public ResponseEntity<?> addPlayer(@RequestBody Player player){
-        players.add(player);
-        return new ResponseEntity<>(player, HttpStatus.CREATED);
+        return new ResponseEntity<>(playerManager.addPlayer(player), HttpStatus.CREATED);
     }
 
-    @PutMapping("/players/{id}")
+    @PutMapping("/api/players/{id}")
     public ResponseEntity<?> updatePlayer(@RequestBody Player player, @PathVariable String id){
-        players.stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
-                .ifPresent(p -> {
-                    p.setName(player.getName());
-                    p.setSurname(player.getSurname());
-                    p.setAge(player.getAge());
-                    p.setHeight(player.getHeight());
-                    p.setTeam(player.getTeam());
-                });
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(playerManager.updatePlayer(player, id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    @DeleteMapping("/players/{id}")
+    @DeleteMapping("/api/players/{id}")
     public ResponseEntity<?> deletePlayer(@PathVariable String id){
-        boolean removed = players.removeIf(player -> player.getId().equals(id));
-        if (removed) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(playerManager.deletePlayer(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
