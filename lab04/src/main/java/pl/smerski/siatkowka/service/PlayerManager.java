@@ -9,7 +9,7 @@ public interface PlayerManager {
     List<Player> getPlayers();
     Player getPlayer(String id) throws Exception;
     Player addPlayer(Player player);
-    Player updatePlayer(Player player, String id) throws Exception;
+    Player updatePlayer(Player player) throws Exception;
     Player deletePlayer(String id) throws Exception;
 
 }

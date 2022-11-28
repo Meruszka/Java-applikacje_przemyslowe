@@ -12,6 +12,7 @@
     <table>
         <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Age</th>
@@ -22,13 +23,14 @@
         </thead>
         <tbody>
         <tr th:each="player : ${allPlayersFromDB}">
+            <td th:text="${player.id}"></td>
             <td th:text="${player.name}"></td>
             <td th:text="${player.surname}"></td>
             <td th:text="${player.age}"></td>
             <td th:text="${player.height}"></td>
             <td th:text="${player.team}"></td>
             <td>
-                <a th:href="@{/players/edit/{id}(id=${player.id})}">Edit</a>
+                <a th:href="@{/players/update/{id}(id=${player.id})}">Edit</a>
                 <a th:href="@{/players/delete/{id}(id=${player.id})}">Delete</a>
             </td>
         </tr>

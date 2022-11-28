@@ -5,6 +5,7 @@ import pl.smerski.siatkowka.domain.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PlayerManagerInMemory implements PlayerManager {
@@ -17,10 +18,12 @@ public class PlayerManagerInMemory implements PlayerManager {
 
     @Override
     public Player getPlayer(String id) throws Exception {
-        Player foundPlayer = players.stream()
-                .filter(player -> player.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        Player foundPlayer = null;
+        for (Player player : players) {
+            if (player.getId().equals(id)) {
+                foundPlayer = player;
+            }
+        }
         if (foundPlayer == null) {
             // Custom Exception TODO
             throw new Exception("Player not found");
@@ -30,23 +33,23 @@ public class PlayerManagerInMemory implements PlayerManager {
 
     @Override
     public Player addPlayer(Player player) {
+        player.setId(UUID.randomUUID().toString());
         players.add(player);
         return player;
     }
 
     @Override
-    public Player updatePlayer(Player player, String id) throws Exception {
-        players.stream()
-                .filter(p -> p.getId().equals(id))
+    public Player updatePlayer(Player player) throws Exception {
+        Player playerToUpdate = players.stream()
+                .filter(p -> p.getId().equals(player.getId()))
                 .findFirst()
-                .ifPresent(p -> {
-                    p.setName(player.getName());
-                    p.setSurname(player.getSurname());
-                    p.setAge(player.getAge());
-                    p.setHeight(player.getHeight());
-                    p.setTeam(player.getTeam());
-                });
-        return player;
+                .orElseThrow(() -> new Exception("Player not found"));
+        playerToUpdate.setName(player.getName());
+        playerToUpdate.setSurname(player.getSurname());
+        playerToUpdate.setAge(player.getAge());
+        playerToUpdate.setHeight(player.getHeight());
+        playerToUpdate.setTeam(player.getTeam());
+        return playerToUpdate;
     }
 
     @Override

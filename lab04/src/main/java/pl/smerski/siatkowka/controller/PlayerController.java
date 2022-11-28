@@ -38,9 +38,9 @@ public class PlayerController {
     }
 
     @PutMapping("/api/players/{id}")
-    public ResponseEntity<?> updatePlayer(@RequestBody Player player, @PathVariable String id){
+    public ResponseEntity<?> updatePlayer(@RequestBody Player player){
         try {
-            return new ResponseEntity<>(playerManager.updatePlayer(player, id), HttpStatus.OK);
+            return new ResponseEntity<>(playerManager.updatePlayer(player), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

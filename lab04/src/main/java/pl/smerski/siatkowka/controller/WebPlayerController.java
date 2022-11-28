@@ -27,7 +27,7 @@ public class WebPlayerController {
     // Post new player
     @GetMapping("/players/form")
     public String getForm(Model model) {
-        model.addAttribute("playerToAdd", new Player("", "", 0, 0, ""));
+        model.addAttribute("playerToAdd", new Player());
         return "playerForm";
     }
 
@@ -48,13 +48,24 @@ public class WebPlayerController {
     }
     // Update player
     @GetMapping("/players/update/{id}")
-    public String updatePlayer(@PathVariable String id, Model model) {
+    public String updatePlayer(@PathVariable("id") String id, Model model) {
         try {
-            model.addAttribute("playerToUpdate", playerManager.getPlayer(id));
+            System.out.println("ID: " + id);
+            model.addAttribute("player", playerManager.getPlayer(id));
+            return "playerUpdateForm";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return "updatePlayer";
+    }
+    @PostMapping("/players/update")
+    public String updatePlayer(Player player) {
+        try {
+            System.out.println("ID: " + player.getId());
+            playerManager.updatePlayer(player);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/players";
     }
 }
 
