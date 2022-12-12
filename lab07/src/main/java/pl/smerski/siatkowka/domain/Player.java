@@ -6,11 +6,10 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="players")
 public class Player {
     @Getter @Setter @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Getter @Setter
     private String name;
     @Getter @Setter
@@ -19,12 +18,9 @@ public class Player {
     private int age;
     @Getter @Setter
     private int height;
+    @Getter @Setter
+    @ManyToOne
     private Team team;
-
-    @OneToOne
-    public Team getTeam(){
-        return team;
-    }
 
     public Player(){
     }
@@ -33,18 +29,6 @@ public class Player {
         this.surname = surname;
         this.age = age;
         this.height = height;
-        this.team = team;
-    }
-    public Player(String id, String name, String surname, int age, int height, Team team) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.height = height;
-        this.team = team;
-    }
-
-    public void setTeam(Team team) {
         this.team = team;
     }
 

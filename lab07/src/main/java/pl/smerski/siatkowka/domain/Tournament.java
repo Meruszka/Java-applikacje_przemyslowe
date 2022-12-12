@@ -7,34 +7,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="tournaments")
 public class Tournament {
-    @Getter @Setter @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @Id
+    @Getter @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Getter @Setter
     private String name;
     @Getter @Setter
+    @ManyToMany
     private List<Team> teams;
 
-    @ManyToMany
-    public List<Team> getTeams() {
-        return teams;
-    }
-    public Tournament(){
-    }
-    public Tournament(String name, List<Team> teams) {
-        this.name = name;
-        this.teams = teams;
-    }
-    public Tournament(String id, String name, List<Team> teams) {
-        this.id = id;
-        this.name = name;
-        this.teams = teams;
-    }
-
-    @Override
-    public String toString() {
-        return "" + name + teams;
-    }
 }

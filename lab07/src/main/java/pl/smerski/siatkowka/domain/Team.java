@@ -4,55 +4,52 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="teams")
 public class Team {
     @Getter @Setter @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Getter @Setter
     private String name;
     @Getter @Setter
     private String city;
-    @Setter
-    private Coach coach;
-    @Setter
-    private Player captain;
+    @Setter @Getter
+//    @OneToOne
+    private String coach;
+    @Setter @Getter
+//    @OneToOne
+    private String captain;
 
-    @OneToOne
-    public Coach getCoach() {
-        return coach;
-    }
+    @Setter @Getter
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Player> players;
 
-    @OneToOne
-    public Player getCaptain() {
-        return captain;
-    }
 
     public Team(){
     }
     public Team(String name){
         this.name = name;
     }
-    public Team(String name, String city, Coach coach, Player captain) {
+    public Team(String name, String city, String coach, String captain) {
         this.name = name;
         this.city = city;
         this.coach = coach;
         this.captain = captain;
     }
-    public Team(String id, String name, String city, Coach coach, Player captain) {
-        this.id = id;
+    public Team(String name, String city, String coach, String captain,  List<Player> players) {
         this.name = name;
         this.city = city;
         this.coach = coach;
         this.captain = captain;
+        this.players = players;
     }
 
 
     @Override
     public String toString(){
-        return "" + name + city + coach + captain;
+        return "" + name;
     }
 
 }
