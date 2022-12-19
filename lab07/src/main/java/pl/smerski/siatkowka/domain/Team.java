@@ -21,10 +21,13 @@ public class Team {
     @Setter @Getter
 //    @OneToOne
     private String captain;
+    @Setter @Getter
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<Player> players;
 
     @Setter @Getter
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Player> players;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "tournament")
+    private List<Tournament> tournaments;
 
 
     public Team(){
@@ -45,6 +48,8 @@ public class Team {
         this.captain = captain;
         this.players = players;
     }
+
+
 
 
     @Override

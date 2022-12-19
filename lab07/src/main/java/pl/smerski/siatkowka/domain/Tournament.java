@@ -15,7 +15,29 @@ public class Tournament {
     @Getter @Setter
     private String name;
     @Getter @Setter
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Team> teams;
+
+
+    public Tournament(){
+    }
+
+    public Tournament(String name){
+        this.name = name;
+    }
+
+    public Tournament(String name, List<Team> teams){
+        this.name = name;
+        this.teams = teams;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (Team team: teams) {
+            sb.append(team.getName()).append(" ");
+        }
+        return "" + name + " " + sb;
+    }
 
 }
