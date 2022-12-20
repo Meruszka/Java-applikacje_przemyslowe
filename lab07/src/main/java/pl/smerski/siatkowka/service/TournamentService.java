@@ -3,6 +3,8 @@ package pl.smerski.siatkowka.service;
 import pl.smerski.siatkowka.domain.Tournament;
 import pl.smerski.siatkowka.repository.TournamentRepository;
 
+import java.util.List;
+
 public class TournamentService {
     final TournamentRepository tournamentRepository;
     public TournamentService(TournamentRepository tournamentRepository){
@@ -45,11 +47,11 @@ public class TournamentService {
 
     // Custom methods
 
-    public Iterable<Tournament> findAllWithTeams(){
+    public List<Tournament> findAllWithTeams(){
         return tournamentRepository.findAllWithTeams();
     }
 
-    public Iterable<Tournament> findByTeamName(String teamName){
+    public List<Tournament> findByTeamName(String teamName){
         return tournamentRepository.findByTeamName(teamName);
     }
 
@@ -61,15 +63,15 @@ public class TournamentService {
         return tournamentRepository.findByNameOrTeamName(name, teamName);
     }
 
-    public Tournament findByTeamsCount(int count){
+    public List<Tournament> findByTeamsCount(int count){
         return tournamentRepository.findByTeamsCount(count);
     }
 
-    public Tournament findByTeamsCountGreaterThan(int count){
+    public List<Tournament> findByTeamsCountGreaterThan(int count){
         return tournamentRepository.findByTeamsCountGreaterThan(count);
     }
 
-    public Tournament findByTeamsCountLessThan(int count){
+    public List<Tournament> findByTeamsCountLessThan(int count){
         return tournamentRepository.findByTeamsCountLessThan(count);
     }
 }

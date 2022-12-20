@@ -11,13 +11,13 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
     Iterable<Team> findAllWithPlayers();
 
     @Query("SELECT t FROM Team t JOIN t.players p WHERE p.name = ?1")
-    Team findByPlayerName(String playerName);
+    Iterable<Team> findByPlayerName(String playerName);
 
     @Query("SELECT t FROM Team t JOIN t.players p WHERE p.surname = ?1")
-    Team findByPlayerSurname(String playerSurname);
+    Iterable<Team> findByPlayerSurname(String playerSurname);
 
     @Query("SELECT t FROM Team t JOIN t.players p WHERE p.name = ?1 OR p.surname = ?2")
-    Team findByPlayerNameOrSurname(String playerName, String playerSurname);
+    Iterable<Team> findByPlayerNameOrSurname(String playerName, String playerSurname);
 
     @Query("SELECT t FROM Team t JOIN t.players p GROUP BY t.name HAVING COUNT(p) > ?1")
     Iterable<Team> findByPlayersCountGreaterThan(int count);

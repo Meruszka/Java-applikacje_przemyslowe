@@ -55,7 +55,39 @@ public class PlayerService {
         }
     }
 
+    // Custom methods
 
+    public Iterable<Player> findAllWithTeam(){
+        return playerRepository.findAllWithTeam();
+    }
+
+    public Iterable<Player> findByTeamName(String teamName){
+        return playerRepository.findByTeamName(teamName);
+    }
+
+    public Iterable<Player> findByTeamNameAndSurname(String teamName, String surname){
+        return playerRepository.findByTeamNameAndSurname(teamName, surname);
+    }
+
+    public Iterable<Player> findByHeight(int height){
+        return playerRepository.findByHeight(height);
+    }
+
+    public Iterable<Player> findByAge(int age){
+        return playerRepository.findByAge(age);
+    }
+
+    public Iterable<Player> findByAgeLessOrEqual21(){
+        return playerRepository.findByAgeLessOrEqual21();
+    }
+
+    public Iterable<Player> findByHeightGreaterThan200(){
+        return playerRepository.findByHeightGreaterThan200();
+    }
+
+    public Iterable<Player> findByHeightLessThan180OrGreaterThan200(){
+        return playerRepository.findByHeightLessThan180OrGreaterThan200();
+    }
 
 //    public void learning(){
 //        Team team1 = new Team("PGE Skra", "Bełchatów", "Joel Banks", "Grzegorz Łomacz");

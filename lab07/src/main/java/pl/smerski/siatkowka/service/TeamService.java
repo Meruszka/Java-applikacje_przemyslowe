@@ -55,15 +55,15 @@ public class TeamService {
         return teamRepository.findAllWithPlayers();
     }
 
-    public Team findByPlayerName(String playerName){
+    public Iterable<Team> findByPlayerName(String playerName){
         return teamRepository.findByPlayerName(playerName);
     }
 
-    public Team findByPlayerSurname(String playerSurname){
+    public Iterable<Team> findByPlayerSurname(String playerSurname){
         return teamRepository.findByPlayerSurname(playerSurname);
     }
 
-    public Team findByPlayerNameOrSurname(String playerName, String playerSurname){
+    public Iterable<Team> findByPlayerNameOrSurname(String playerName, String playerSurname){
         return teamRepository.findByPlayerNameOrSurname(playerName, playerSurname);
     }
 

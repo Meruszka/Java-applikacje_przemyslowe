@@ -4,13 +4,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import pl.smerski.siatkowka.domain.Tournament;
 
+import java.util.List;
+
 public interface TournamentRepository extends CrudRepository<Tournament, Long> {
 
     @Query("SELECT t FROM Tournament t JOIN FETCH t.teams")
-    Iterable<Tournament> findAllWithTeams();
+    List<Tournament> findAllWithTeams();
 
     @Query("SELECT t FROM Tournament t JOIN t.teams te WHERE te.name = ?1")
-    Iterable<Tournament> findByTeamName(String teamName);
+    List<Tournament> findByTeamName(String teamName);
 
     @Query("SELECT t FROM Tournament t WHERE t.teams.name = ?1 AND t.name = ?2")
     Tournament findByTeamNameAndName(String teamName, String name);
@@ -19,12 +21,12 @@ public interface TournamentRepository extends CrudRepository<Tournament, Long> {
     Tournament findByNameOrTeamName(String name, String teamName);
 
     @Query("SELECT t FROM Tournament t JOIN t.teams te WHERE COUNT(te) = ?1")
-    Tournament findByTeamsCount(int count);
+    List<Tournament> findByTeamsCount(int count);
 
     @Query("SELECT t FROM Tournament t JOIN t.teams te WHERE COUNT(te) > ?1")
-    Tournament findByTeamsCountGreaterThan(int count);
+    List<Tournament> findByTeamsCountGreaterThan(int count);
 
     @Query("SELECT t FROM Tournament t JOIN t.teams te WHERE COUNT(te) < ?1")
-    Tournament findByTeamsCountLessThan(int count);
+    List<Tournament> findByTeamsCountLessThan(int count);
 
 }

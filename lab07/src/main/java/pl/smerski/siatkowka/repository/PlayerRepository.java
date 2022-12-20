@@ -5,33 +5,35 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.smerski.siatkowka.domain.Player;
 
-import java.util.List;
+import java.lang.Iterable;
 
 @Repository
 public interface PlayerRepository extends CrudRepository<Player, Long> {
 
     @Query("SELECT p FROM Player p JOIN FETCH p.team")
-    List<Player> findAllWithTeam();
+    Iterable<Player> findAllWithTeam();
 
     @Query("SELECT p FROM Player p JOIN p.team t WHERE t.name = ?1")
-    Player findByTeamName(String teamName);
+    Iterable<Player> findByTeamName(String teamName);
 
     @Query("SELECT p FROM Player p WHERE p.team.name = ?1 AND p.surname = ?2")
-    Player findByTeamNameAndSurname(String teamName, String surname);
+    Iterable<Player> findByTeamNameAndSurname(String teamName, String surname);
 
     @Query("SELECT p FROM Player p WHERE p.name = ?1 OR p.surname = ?2")
-    List<Player> findByNameOrSurname(String name, String surname);
+    Iterable<Player> findByNameOrSurname(String name, String surname);
 
     @Query("SELECT p FROM Player p WHERE p.height > ?1")
-    List<Player> findByHeight(int height);
+    Iterable<Player> findByHeight(int height);
 
     @Query("SELECT p FROM Player p WHERE p.age > ?1")
-    List<Player> findByAge(int age);
+    Iterable<Player> findByAge(int age);
 
     @Query("SELECT p FROM Player p WHERE p.age <= 21")
-    List<Player> findByAgeLessOrEqual21();
+    Iterable<Player> findByAgeLessOrEqual21();
 
     @Query("SELECT p FROM Player p WHERE p.height > 200")
-    List<Player> findByHeightGreaterThan200();
+    Iterable<Player> findByHeightGreaterThan200();
 
+    @Query("SELECT p FROM Player p WHERE p.height < 180 OR p.height > 200")
+    Iterable<Player> findByHeightLessThan180OrGreaterThan200();
 }
