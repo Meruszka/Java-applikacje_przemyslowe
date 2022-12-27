@@ -14,12 +14,6 @@ public interface TournamentRepository extends CrudRepository<Tournament, Long> {
     @Query("SELECT t FROM Tournament t JOIN t.teams te WHERE te.name = ?1")
     List<Tournament> findByTeamName(String teamName);
 
-    @Query("SELECT t FROM Tournament t WHERE t.teams.name = ?1 AND t.name = ?2")
-    Tournament findByTeamNameAndName(String teamName, String name);
-
-    @Query("SELECT t FROM Tournament t WHERE t.name = ?1 OR t.teams.name = ?2")
-    Tournament findByNameOrTeamName(String name, String teamName);
-
     @Query("SELECT t FROM Tournament t JOIN t.teams te WHERE COUNT(te) = ?1")
     List<Tournament> findByTeamsCount(int count);
 

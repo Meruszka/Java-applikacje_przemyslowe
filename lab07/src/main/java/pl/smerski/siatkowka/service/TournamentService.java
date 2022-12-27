@@ -55,14 +55,6 @@ public class TournamentService {
         return tournamentRepository.findByTeamName(teamName);
     }
 
-    public Tournament findByTeamNameAndName(String teamName, String name){
-        return tournamentRepository.findByTeamNameAndName(teamName, name);
-    }
-
-    public Tournament findByNameOrTeamName(String name, String teamName){
-        return tournamentRepository.findByNameOrTeamName(name, teamName);
-    }
-
     public List<Tournament> findByTeamsCount(int count){
         return tournamentRepository.findByTeamsCount(count);
     }
