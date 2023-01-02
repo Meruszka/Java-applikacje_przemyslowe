@@ -3,11 +3,15 @@ package pl.smerski.siatkowka.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.smerski.siatkowka.domain.Tournament;
 import pl.smerski.siatkowka.service.TournamentService;
 
+import java.util.List;
+
+@RestController
 public class TournamentController {
-    private final TournamentService tournamentService;
+    final TournamentService tournamentService;
 
     public TournamentController(TournamentService tournamentService) {
         this.tournamentService = tournamentService;
@@ -41,28 +45,8 @@ public class TournamentController {
 
     // Custom methods
 
-    @GetMapping("/tournaments/withTeams")
-    public ResponseEntity<Iterable<Tournament>> getAllTournamentsWithTeams(){
-        return ResponseEntity.ok(tournamentService.findAllWithTeams());
-    }
-
-    @GetMapping("/tournaments/byName/{teamName}")
-    public ResponseEntity<Iterable<Tournament>> getAllTournamentsByTeamName(String teamName){
-        return ResponseEntity.ok(tournamentService.findByTeamName(teamName));
-    }
-
-    @GetMapping("/tournaments/teamCount/{teamCount}")
-    public ResponseEntity<Iterable<Tournament>> getAllTournamentsByTeamCount(Integer teamCount){
-        return ResponseEntity.ok(tournamentService.findByTeamsCount(teamCount));
-    }
-
-    @GetMapping("/tournaments/byBoth/teamCount/greaterThan/{teamCount}")
-    public ResponseEntity<Iterable<Tournament>> getAllTournamentsByTeamCountGreaterThan(Integer teamCount){
-        return ResponseEntity.ok(tournamentService.findByTeamsCountGreaterThan(teamCount));
-    }
-
-    @GetMapping("/tournaments/byBoth/teamCount/lessThan/{teamCount}")
-    public ResponseEntity<Iterable<Tournament>> getAllTournamentsByTeamCountLessThan(Integer teamCount){
-        return ResponseEntity.ok(tournamentService.findByTeamsCountLessThan(teamCount));
+    @GetMapping("/tournaments/{name")
+    public ResponseEntity<List<Tournament>> getTournamentByName(String name){
+        return ResponseEntity.ok(tournamentService.findByName(name));
     }
 }

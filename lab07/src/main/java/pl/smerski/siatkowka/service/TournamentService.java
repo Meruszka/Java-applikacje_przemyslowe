@@ -1,10 +1,14 @@
 package pl.smerski.siatkowka.service;
 
+import org.springframework.stereotype.Service;
 import pl.smerski.siatkowka.domain.Tournament;
 import pl.smerski.siatkowka.repository.TournamentRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class TournamentService {
     final TournamentRepository tournamentRepository;
     public TournamentService(TournamentRepository tournamentRepository){
@@ -47,23 +51,7 @@ public class TournamentService {
 
     // Custom methods
 
-    public List<Tournament> findAllWithTeams(){
-        return tournamentRepository.findAllWithTeams();
-    }
-
-    public List<Tournament> findByTeamName(String teamName){
-        return tournamentRepository.findByTeamName(teamName);
-    }
-
-    public List<Tournament> findByTeamsCount(int count){
-        return tournamentRepository.findByTeamsCount(count);
-    }
-
-    public List<Tournament> findByTeamsCountGreaterThan(int count){
-        return tournamentRepository.findByTeamsCountGreaterThan(count);
-    }
-
-    public List<Tournament> findByTeamsCountLessThan(int count){
-        return tournamentRepository.findByTeamsCountLessThan(count);
+    public List<Tournament> findByName(String name){
+        return tournamentRepository.findByName(name);
     }
 }

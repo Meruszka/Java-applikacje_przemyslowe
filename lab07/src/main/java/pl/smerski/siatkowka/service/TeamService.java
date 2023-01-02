@@ -5,6 +5,7 @@ import pl.smerski.siatkowka.domain.Team;
 import pl.smerski.siatkowka.repository.TeamRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -51,23 +52,7 @@ public class TeamService {
 
     // Custom methods
 
-    public Iterable<Team> findAllWithPlayers(){
-        return teamRepository.findAllWithPlayers();
-    }
-
-    public Iterable<Team> findByPlayerName(String playerName){
-        return teamRepository.findByPlayerName(playerName);
-    }
-
-    public Iterable<Team> findByPlayerSurname(String playerSurname){
-        return teamRepository.findByPlayerSurname(playerSurname);
-    }
-
-    public Iterable<Team> findByPlayerNameOrSurname(String playerName, String playerSurname){
-        return teamRepository.findByPlayerNameOrSurname(playerName, playerSurname);
-    }
-
-    public Iterable<Team> findByPlayersCountGreaterThan(int count) {
-        return teamRepository.findByPlayersCountGreaterThan(count);
+    public List<Team> findByName(String name){
+        return teamRepository.findByName(name);
     }
 }

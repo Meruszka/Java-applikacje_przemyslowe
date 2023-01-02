@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "team")
 public class Team {
     @Getter @Setter @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class Team {
     private List<Player> players;
 
     @Setter @Getter
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "tournament")
+    @ManyToMany(mappedBy = "teams")
     private List<Tournament> tournaments;
 
 
