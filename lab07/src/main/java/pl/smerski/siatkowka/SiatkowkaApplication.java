@@ -16,7 +16,6 @@ public class SiatkowkaApplication {
 	@Bean
 	public CommandLineRunner appSetup(@Autowired PlayerService playerService){
 		return args -> {
-
 		};
 	}
 

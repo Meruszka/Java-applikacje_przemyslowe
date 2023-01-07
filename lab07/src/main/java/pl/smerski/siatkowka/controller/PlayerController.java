@@ -9,7 +9,7 @@ import pl.smerski.siatkowka.service.PlayerService;
 
 @RestController
 public class PlayerController {
-    final PlayerService playerService;
+    private final PlayerService playerService;
 
     public PlayerController(PlayerService playerService) {
         this.playerService = playerService;

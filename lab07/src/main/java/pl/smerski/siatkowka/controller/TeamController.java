@@ -3,13 +3,11 @@ package pl.smerski.siatkowka.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import pl.smerski.siatkowka.domain.Team;
 import pl.smerski.siatkowka.service.TeamService;
 
-@RestController
 public class TeamController {
-    final TeamService teamService;
+    private final TeamService teamService;
 
     public TeamController(TeamService teamService) {
         this.teamService = teamService;
@@ -43,5 +41,29 @@ public class TeamController {
 
     // Custom methods
 
+    @GetMapping("/teams/withPlayers")
+    public ResponseEntity<Iterable<Team>> getAllTeamsWithPlayers(){
+        return ResponseEntity.ok(teamService.findAllWithPlayers());
+    }
+
+    @GetMapping("/teams/byName/{playerName}")
+    public ResponseEntity<Iterable<Team>> getAllTeamsByPlayerName(String playerName){
+        return ResponseEntity.ok(teamService.findByPlayerName(playerName));
+    }
+
+    @GetMapping("/teams/bySurname/{surname}")
+    public ResponseEntity<Iterable<Team>> getAllTeamsBySurname(String surname){
+        return ResponseEntity.ok(teamService.findByPlayerSurname(surname));
+    }
+
+    @GetMapping("/teams/byBoth/{playerName}/{surname}")
+    public ResponseEntity<Iterable<Team>> getAllTeamsByPlayerNameAndSurname(String playerName, String surname){
+        return ResponseEntity.ok(teamService.findByPlayerNameOrSurname(playerName, surname));
+    }
+
+    @GetMapping("/teams/count/{num}")
+    public ResponseEntity<Iterable<Team>> getAllTeamsByPlayerCountGreaterThan(Integer num){
+        return ResponseEntity.ok(teamService.findByPlayersCountGreaterThan(num));
+    }
 
 }
