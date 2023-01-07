@@ -26,7 +26,7 @@ public class Team {
     private List<Player> players;
 
     @Setter @Getter
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "tournament")
+    @ManyToMany(mappedBy = "teams")
     private List<Tournament> tournaments;
 
 
